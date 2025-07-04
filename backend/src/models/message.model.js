@@ -2,12 +2,12 @@ import mongoose from 'mongoose';
 
 const messageSchema = new mongoose.Schema({
     senderId: {
-        type: string,
+        type: String,
         required: true
     },  // Clerk ID of the sender
 
     receiverId: {
-        type: string,
+        type: String,
         required: true
     },
 

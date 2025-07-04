@@ -1,5 +1,6 @@
 import { Song } from "../models/song.model.js";
 import { Album } from "../models/album.model.js";
+import cloudinary from "../lib/cloudinary.js";
 
 const uploadToCloudinary = async (file) => {
   try {
@@ -24,14 +25,14 @@ export const createSong = async (req, res, next) => {
     const { title, artist, albumId, duration } = req.body;
     const audioFile = req.files.audioFile;
     const imageFile = req.files.imageFile;
-    const audioURL = await uploadToCloudinary(audioFile);
-    const imageURL = await uploadToCloudinary(imageFile);
+    const audioUrl = await uploadToCloudinary(audioFile);
+    const imageUrl = await uploadToCloudinary(imageFile);
 
     const song = new Song({
       title,
       artist,
-      audioURL,
-      imageURL,
+      audioUrl,
+      imageUrl,
       duration,
       albumId: albumId || null,
     });
@@ -60,7 +61,7 @@ export const deleteSong = async (req, res, next) => {
         $pull: { songs: song._id },
       });
     }
-    await song.findByIdAndDelete(id);
+    await Song.findByIdAndDelete(id);
     res.status(200).json({ message: "Song deleted successfully" });
   } catch (error) {
     console.error("Error deleting song:", error);
@@ -72,8 +73,8 @@ export const createAlbum = async (req, res, next) => {
   try {
     const { title, artist, releaseYear } = req.body;
     const {imageFile} = req.files;
-    const imageURL = await uploadToCloudinary(imageFile);
-    const album = new Album({ title, artist, imageURL, releaseYear });
+    const imageUrl = await uploadToCloudinary(imageFile);
+    const album = new Album({ title, artist, imageUrl, releaseYear });
     await album.save();
     res.status(201).json(album);
   } catch (error) {

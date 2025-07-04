@@ -9,11 +9,14 @@ export const authCallback = async (req, res, next) => {
       // If user does not exist, create a new user
       const newUser = await User.create({
         clerkId: id,
-        fullName: `${firstName} ${lastName}`,
+        fullName: `${firstName || ""} ${lastName || ""}`.trim(),
         imageUrl,
       });
       return res.status(201).json(newUser);
     }
+    
+    // If user exists, return the existing user
+    res.status(200).json(user);
   } catch (error) {
     console.error("Error in /callback:", error);
     next(error);
