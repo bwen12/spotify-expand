@@ -1,11 +1,11 @@
 import { Router } from "express";
+import { protectRoute } from "../middleware/auth.middleware.js";
+import { getAllUsers } from "../controller/user.controller.js";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  req.auth.userId
-  res.json({ message: "User route is working!" });
-});
+//because you should only see users if you are logged in
+router.get("/", protectRoute, getAllUsers);
 
 
 
