@@ -1,21 +1,26 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import AuthCallbackPage from './pages/AuthCallbackPage';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import AuthCallbackPage from "./pages/AuthCallbackPage";
+import { AuthenticateWithRedirectCallback } from "@clerk/clerk-react";
 
 function App() {
   return (
     <>
       <header>
-      <Routes>
-        <Route path="/" element={<HomePage/>} />
-        <Route path="/auth-callback" element={<AuthCallbackPage/>} />
-        <Route path="/signup" element={<h1>Signup Page</h1>} />
-        <Route path="/dashboard" element={<h1>Dashboard</h1>} />
-        <Route path="/profile" element={<h1>Profile Page</h1>} />
-      </Routes>
-      
-    </header>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/sso-callback"
+            element={
+              <AuthenticateWithRedirectCallback
+                signUpForceRedirectUrl={"/auth-callback"}
+              />
+            }
+          />
+          <Route path="/auth-callback" element={<AuthCallbackPage />} />
+        </Routes>
+      </header>
     </>
   );
 }
