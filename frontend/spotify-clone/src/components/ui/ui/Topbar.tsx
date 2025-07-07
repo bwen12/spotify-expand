@@ -4,11 +4,18 @@ import { SignedIn, SignedOut, SignOutButton } from "@clerk/clerk-react";
 import SignInOauthButtons from "../SignInOauthButtons";
 import { Button } from "../button";
 
+
 const Topbar = () => {
   const isAdmin = false;
   return (
     <div className="flex items-center justify-between p-4 sticky top-0 bg-zinc-900/75 backdrop-blur-md z-10">
-      <div className="flex gaps-2 item-center"> spotify-clone</div>
+      
+      <div className="flex gaps-2 items-center">
+        <Link to={"/"} className="flex items-center justify-start p-2 rounded-full hover:bg-zinc-800/70 transition-all duration-200 group relative">
+          <img src={'spotify.png'} alt="playlist name" className="size-7" />
+        </Link>
+        
+      </div>
       
       <div className="flex gaps-2 items-center">
         {isAdmin && (

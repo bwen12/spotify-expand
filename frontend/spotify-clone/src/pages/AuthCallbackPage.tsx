@@ -14,20 +14,19 @@ const AuthCallbackPage = () => {
   const navigate = useNavigate();
   const { isLoaded, user } = useUser();
   const hasRun = useRef(false);
-  
+
   useEffect(() => {
     const syncUser = async () => {
       try {
         if (!isLoaded || !user || hasRun.current) return;
         hasRun.current = true; // Prevent multiple calls
-        
+
         await axiosInstance.post("/auth/callback", {
           id: user.id,
           firstName: user.firstName,
           lastName: user.lastName,
           imageUrl: user.imageUrl,
         });
-        
       } catch (error) {
         console.error("Error syncing user:", error);
       } finally {
