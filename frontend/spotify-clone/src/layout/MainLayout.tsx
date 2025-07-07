@@ -19,14 +19,14 @@ const MainLayout = () => {
            <LeftSidebar />
         </ResizablePanel>
 
-         <ResizableHandle withHandle />
+         <ResizableHandle />
         
         {/* Main Content page that can be swapped */}
         <ResizablePanel defaultSize={isMobile ? 0 : 20} >
             <Outlet />
         </ResizablePanel>
 
-        <ResizableHandle withHandle />
+        <ResizableHandle />
         
         {/* Right side bar for friends */}
         <ResizablePanel defaultSize={10} minSize={isMobile ? 0 : 20} maxSize={30} collapsedSize={0}>
