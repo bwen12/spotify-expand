@@ -12,7 +12,7 @@ const Topbar = () => {
       
       <div className="flex gaps-2 items-center">
         <Link to={"/"} className="flex items-center justify-start p-2 rounded-full hover:bg-zinc-800/70 transition-all duration-200 group relative">
-          <img src={'spotify.png'} alt="playlist name" className="size-7" />
+          <img src={'/spotify.png'} alt="playlist name" className="size-7" />
         </Link>
         
       </div>

@@ -69,7 +69,7 @@ const LeftSidebar = () => {
               ) : (
                 albums.map((album) => (
                   <Link
-                    to={`/album/${album._id}`}
+                    to={`/albums/${album._id}`}
                     key={album._id}
                     className="flex items-center gap-3 p-2 rounded-md hover:bg-zinc-800/50 transition-all duration-200 cursor-pointer"
                   >
