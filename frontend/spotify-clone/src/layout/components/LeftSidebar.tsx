@@ -54,7 +54,7 @@ const LeftSidebar = () => {
 
       {/* The Songs below */}
       <div className="rounded-lg bg-zinc-900 p-4 flex-1">
-        <SignedIn>
+        
           <div className="flex items-center justify-between mb-4 rounded-lg">
             <div className="flex items-center justify-start p-3 rounded-lg text-white">
               <Library className="size-5 mr-2 " />
@@ -87,7 +87,7 @@ const LeftSidebar = () => {
               )}
             </div>
           </ScrollArea>
-        </SignedIn>
+        
       </div>
     </div>
   );
