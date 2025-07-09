@@ -64,7 +64,7 @@ const LeftSidebar = () => {
 
           <ScrollArea className="h-[calc(100vh-300px)] overflow-y-auto">
             <div className="space-y-3">
-              {isLoading ? (
+              {isLoading && albums.length === 0 ? (
                 <PlaylistSkeleton />
               ) : (
                 albums.map((album) => (
