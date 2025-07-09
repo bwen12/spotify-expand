@@ -5,7 +5,7 @@ export interface Album {
   title: string;
   artist: string;
   imageUrl: string;
-  releaseYear: Date;
+  releaseYear: number;
   songs: Song []; // Array of song IDs
 }
 
