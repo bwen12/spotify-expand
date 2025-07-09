@@ -8,13 +8,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const RightSidebar = () => {
   const { users, fetchUsers, isLoading, error } = useChatStore();
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
   const isPlaying = true; // Placeholder for actual playing state, if needed
 
   //if user is signed in, fetch users from the store
   useEffect(() => {
-    if (user) fetchUsers();
-  }, [fetchUsers, user]);
+    if (user && isLoaded) fetchUsers();
+  }, [fetchUsers, user, isLoaded]);
 
   return (
     <div className="h-full flex flex-col bg-black/20 backdrop-blur-sm rounded-lg g-2">
