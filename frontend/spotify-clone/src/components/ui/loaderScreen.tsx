@@ -1,4 +1,4 @@
-import { Loader } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 const loaderScreen = () => {
   return (
@@ -7,7 +7,7 @@ const loaderScreen = () => {
         {/* Spotify-inspired logo/icon area */}
         <div className="relative">
           <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center shadow-2xl shadow-green-500/25">
-            <Loader className="animate-spin h-10 w-10 text-white" />
+            <Loader2 className="animate-spin h-10 w-10 text-white" />
           </div>
           {/* Pulsing ring effect */}
           <div className="absolute inset-0 w-20 h-20 bg-green-500/20 rounded-full animate-ping"></div>
