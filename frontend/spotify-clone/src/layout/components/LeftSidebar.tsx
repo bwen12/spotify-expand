@@ -5,9 +5,11 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import PlaylistSkeleton from "@/components/skeletons/PlaylistSkeleton";
 import { useMusicStore } from "@/stores/useMusicStore";
 import { useEffect } from "react";
+import { usePlayerStore } from "@/stores/usePlayerStore";
 
 const LeftSidebar = () => {
-  const { albums, fetchAlbums, isLoading } = useMusicStore();
+  const { albums, fetchAlbums, isLoading, currentAlbum } = useMusicStore();
+  const { currentSong, isPlaying } = usePlayerStore();
 
   useEffect(() => {
     fetchAlbums();
@@ -52,22 +54,25 @@ const LeftSidebar = () => {
         </SignedIn>
       </div>
 
-      {/* The Songs below */}
+      {/* The Albums below */}
       <div className="rounded-lg bg-zinc-900 p-4 flex-1">
-        
-          <div className="flex items-center justify-between mb-4 rounded-lg">
-            <div className="flex items-center justify-start p-3 rounded-lg text-white">
-              <Library className="size-5 mr-2 " />
-              <span className="font-bold hidden md:inline">Your Library</span>
-            </div>
+        <div className="flex items-center justify-between mb-4 rounded-lg">
+          <div className="flex items-center justify-start p-3 rounded-lg text-white">
+            <Library className="size-5 mr-2 " />
+            <span className="font-bold hidden md:inline">Your Library</span>
           </div>
+        </div>
 
-          <ScrollArea className="h-[calc(100vh-300px)] overflow-y-auto">
-            <div className="space-y-3">
-              {isLoading && albums.length === 0 ? (
-                <PlaylistSkeleton />
-              ) : (
-                albums.map((album) => (
+        <ScrollArea className="h-[calc(100vh-300px)] overflow-y-auto">
+          <div className="space-y-3">
+            {isLoading && albums.length === 0 ? (
+              <PlaylistSkeleton />
+            ) : (
+              albums.map((album) => {
+                // Check if the current song belongs to this album
+                const isCurrentAlbumPlaying = isPlaying && currentSong && currentSong.albumId === album._id;
+                
+                return (
                   <Link
                     to={`/albums/${album._id}`}
                     key={album._id}
@@ -82,12 +87,22 @@ const LeftSidebar = () => {
                       <p className="text-white font-semibold">{album.title}</p>
                       <p className="text-gray-400 text-sm">{album.artist}</p>
                     </div>
+                    
+                    {/* Playing indicator */}
+                    {isCurrentAlbumPlaying && (
+                      <div className="flex items-center gap-2">
+                        <Play className="h-4 w-4 text-green-500 fill-green-500" />
+                        <span className="text-green-500 text-xs font-medium hidden md:inline">
+                          Playing
+                        </span>
+                      </div>
+                    )}
                   </Link>
-                ))
-              )}
-            </div>
-          </ScrollArea>
-        
+                );
+              })
+            )}
+          </div>
+        </ScrollArea>
       </div>
     </div>
   );

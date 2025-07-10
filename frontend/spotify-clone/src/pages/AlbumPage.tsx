@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
 import Topbar from "../components/ui/ui/Topbar";
 import { useMusicStore } from "@/stores/useMusicStore";
+import { usePlayerStore } from "@/stores/usePlayerStore";
 import { useEffect, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ColorThief from "colorthief";
 import { Button } from "@/components/ui/button";
-import { Clock, Play } from "lucide-react";
+import { AudioLines, Clock, Pause, Play } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -19,6 +20,8 @@ const AlbumPage = () => {
   const { albumId } = useParams();
   const { fetchAlbumById, currentAlbum, isLoading } = useMusicStore();
   const [bgColor, setBgColor] = useState("#5038a0");
+  const { currentSong, isPlaying, playAlbum, togglePlayPause } =
+    usePlayerStore();
 
   //format the durateion to a readable format
   const formatDuration = (duration: number) => {
@@ -45,6 +48,30 @@ const AlbumPage = () => {
       img.src = currentAlbum.imageUrl;
     }
   }, [currentAlbum?.imageUrl]);
+
+  const handlePlayAlbum = () => {
+    if (!currentAlbum) return;
+    const isCurrentAlbumPlaying = currentAlbum?.songs.some(
+      (song) => song._id === currentSong?._id
+    );
+    if (isCurrentAlbumPlaying) {
+      togglePlayPause();
+    } else {
+      playAlbum(currentAlbum?.songs, 0);
+    }
+  };
+
+  const handlePlaySong = (index: number) => {
+    if (!currentAlbum) return;
+    const clickedSong = currentAlbum.songs[index];
+    const isThisSongPlaying = currentSong?._id === clickedSong._id;
+
+    if (isThisSongPlaying) {
+      togglePlayPause(); // Only toggle if clicking the currently playing song
+    } else {
+      playAlbum(currentAlbum?.songs, index); // Always play the clicked song if it's different
+    }
+  };
 
   if (isLoading) return null;
 
@@ -90,10 +117,19 @@ const AlbumPage = () => {
             {/* Controls play button below all that */}
             <div className="flex items-center ml-5 gap-6 mb-5 ">
               <Button
+                //play the album from the start
+                onClick={handlePlayAlbum}
                 size="icon"
                 className="w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg"
               >
-                <Play className="h-6 w-6 text-black" />
+                {isPlaying &&
+                currentAlbum?.songs.some(
+                  (song) => song._id === currentSong?._id
+                ) ? (
+                  <Pause className="h-6 w-6 text-black" />
+                ) : (
+                  <Play className="h-6 w-6 text-black" />
+                )}
               </Button>
             </div>
 
@@ -111,42 +147,55 @@ const AlbumPage = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {currentAlbum?.songs.map((song, index) => (
-                    <TableRow key={song._id} className="group">
-                      <TableCell className="font-medium pl-8">
-                        <div className="flex items-center gap-2">
-                          <span className="group-hover:hidden">
-                            {index + 1}
-                          </span>
-                          <Play className="h-4 w-4 text-green-500 hidden group-hover:block" />
-                        </div>
-                      </TableCell>
+                  {currentAlbum?.songs.map((song, index) => {
+                    const isCurrentSong = currentSong?._id === song._id;
+                    return (
+                      <TableRow
+                        key={song._id}
+                        className="group"
+                        onClick={() => handlePlaySong(index)}
+                      >
+                        <TableCell className="font-medium pl-8">
+                          <div className="flex items-center gap-1">
+                            {isCurrentSong && isPlaying ? (
+                              <AudioLines className = "h-4 w-4 text-green-500" />
+                            ) : (
+                              <>
+                                <span className="group-hover:hidden">
+                                  {index + 1}
+                                </span>
+                                <Play className="h-4 w-4 text-green-500 hidden group-hover:block" />
+                              </>
+                            )}
+                          </div>
+                        </TableCell>
 
-                      <TableCell className="flex items-center">
-                        <img
-                          src={song.imageUrl}
-                          alt="song cover"
-                          className="size-10"
-                        />
-                        <div className="flex flex-col ml-2">
-                          <span className="text-white font-medium">
-                            {song.title}
-                          </span>
-                          <span className="text-gray-400 text-sm">
-                            {song.artist}
-                          </span>
-                        </div>
-                      </TableCell>
+                        <TableCell className="flex items-center">
+                          <img
+                            src={song.imageUrl}
+                            alt="song cover"
+                            className="size-10"
+                          />
+                          <div className="flex flex-col ml-2">
+                            <span className="text-white font-medium">
+                              {song.title}
+                            </span>
+                            <span className="text-gray-400 text-sm">
+                              {song.artist}
+                            </span>
+                          </div>
+                        </TableCell>
 
-                      <TableCell className="flex-col font-medium">
-                        {song.createdAt.split("T")[0]}{" "}
-                      </TableCell>
+                        <TableCell className="flex-col font-medium">
+                          {song.createdAt.split("T")[0]}{" "}
+                        </TableCell>
 
-                      <TableCell className="text-right pr-8">
-                        {formatDuration(song.duration)}
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                        <TableCell className="text-right pr-8">
+                          {formatDuration(song.duration)}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
               </Table>
             </div>

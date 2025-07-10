@@ -6,14 +6,17 @@ import {
 } from "@/components/ui/resizable";
 import LeftSidebar from "./components/LeftSidebar";
 import RightSidebar from "./components/RightSidebar";
+import AudioPlayer from "./components/AudioPlayer";
 
 //So basically on our spotify page the side bars will be the same with the music and friends onl;y the middle will change
 //This is the main layout that will be used for all the pages
 const MainLayout = () => {
-    const isMobile = false;
+  const isMobile = false;
   return (
     <div className="h-screen bg-black text-white flex flex-col">
       <ResizablePanelGroup direction="horizontal" className="flex-1 flex h-full overflowhidden p-2">
+        {/* This is not visisble just an audio element so that we can hear music*/}
+        <AudioPlayer /> 
         
         {/* Left side bar for songs */}
         <ResizablePanel defaultSize={10} minSize={isMobile ? 0 : 20} maxSize={30} collapsedSize={0}>
