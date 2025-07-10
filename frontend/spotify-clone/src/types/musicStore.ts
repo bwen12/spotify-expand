@@ -9,5 +9,11 @@ export interface MusicStore {
     currentAlbum: Album | null;
     fetchAlbums: () => Promise<void>;
     fetchAlbumById: (id: string) => Promise<void>;
+    fetchFeaturedSongs: () => Promise<void>;
+    fetchTrendingSongs: () => Promise<void>;
+    fetchMadeForYouSongs: () => Promise<void>;
+    featuredSongs: Song[];
+    trendingSongs: Song[];
+    madeForYouSongs: Song[];
 }
 
