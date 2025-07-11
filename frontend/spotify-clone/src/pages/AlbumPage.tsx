@@ -16,19 +16,19 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+//format the durateion to a readable format
+export const formatDuration = (duration: number) => {
+  const minutes = Math.floor(duration / 60);
+  const seconds = duration % 60;
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+};
+
 const AlbumPage = () => {
   const { albumId } = useParams();
   const { fetchAlbumById, currentAlbum, isLoading } = useMusicStore();
   const [bgColor, setBgColor] = useState("#5038a0");
   const { currentSong, isPlaying, playAlbum, togglePlayPause } =
     usePlayerStore();
-
-  //format the durateion to a readable format
-  const formatDuration = (duration: number) => {
-    const minutes = Math.floor(duration / 60);
-    const seconds = duration % 60;
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  };
 
   useEffect(() => {
     if (albumId) {
@@ -158,7 +158,7 @@ const AlbumPage = () => {
                         <TableCell className="font-medium pl-8">
                           <div className="flex items-center gap-1">
                             {isCurrentSong && isPlaying ? (
-                              <AudioLines className = "h-4 w-4 text-green-500" />
+                              <AudioLines className="h-4 w-4 text-green-500" />
                             ) : (
                               <>
                                 <span className="group-hover:hidden">

@@ -83,8 +83,9 @@ const LeftSidebar = () => {
                       alt="playlist name"
                       className="size-14 -ml-2 rounded-md flex-shrink-0 object-cover"
                     />
+                    
                     <div className="flex-1 ml-5 min-w-0 hidden md:block">
-                      <p className="text-white font-semibold">{album.title}</p>
+                      <p className={`font-semibold ${isCurrentAlbumPlaying ? 'text-green-500' : "text-white"}`}>{album.title}</p>
                       <p className="text-gray-400 text-sm">{album.artist}</p>
                     </div>
                     

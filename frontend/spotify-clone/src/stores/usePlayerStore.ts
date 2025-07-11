@@ -8,8 +8,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
   isPlaying: false,
   queue: [],
   currentIndex: -1,
-  activeInstanceId: null,
-  setActiveInstanceId: (id) => set({ activeInstanceId: id }),
+  
 
   initializeQueue: (songs: Song[]) => {
     set({
