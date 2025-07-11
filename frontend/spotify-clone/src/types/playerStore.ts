@@ -11,4 +11,6 @@ export interface PlayerStore {
   togglePlayPause: () => void;
   playNext: () => void;
   playPrevious: () => void;
+  activeInstanceId: string | null
+  setActiveInstanceId: (id: string | null) => void
 }

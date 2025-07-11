@@ -1,5 +1,7 @@
 import { useMusicStore } from "@/stores/useMusicStore";
 import FeaturedGridSkeleton from "../skeletons/FeaturedGridSkeleton";
+import { CirclePlay } from "lucide-react";
+import PlayButton from "./PlayButton";
 
 const FeaturedSection = () => {
   const { featuredSongs, isLoading, error } = useMusicStore();
@@ -13,11 +15,11 @@ const FeaturedSection = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols2 lg:grid-cols-3 gap-4 mb-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
       {featuredSongs.map((song) => (
         <div
           key={song._id}
-          className="flex items-center bg-zinc-800/50 rounded-md overflow-hidden hover:bg-zinc-700/50 transition-colors grou cursor-pointer relative"
+          className="group flex items-center bg-zinc-800/50 rounded-md overflow-hidden hover:bg-zinc-700/50 transition-colors cursor-pointer relative"
         >
           <img
             src={song.imageUrl}
@@ -28,8 +30,10 @@ const FeaturedSection = () => {
             <h3 className="text-white font-semibold truncate">{song.title}</h3>
             <p className="text-sm text-zinc-400 truncate">{song.artist}</p>
           </div>
+          <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
+            <PlayButton song={song} />
+          </div>
         </div>
-        //To Do add play button
       ))}
     </div>
   );

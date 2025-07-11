@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Topbar from "../components/ui/ui/Topbar";
 import { useMusicStore } from "@/stores/useMusicStore";
 import FeaturedSection from "@/components/ui/FeaturedSection";
@@ -20,8 +20,9 @@ const HomePage = () => {
     fetchTrendingSongs();
     fetchMadeForYouSongs();
   }, [fetchFeaturedSongs, fetchTrendingSongs, fetchMadeForYouSongs]);
-
-  console.log({ madeForYouSongs, trendingSongs, featuredSongs, isLoading });
+  
+  //TODO : Manage active instance so play button doesnt appear on every song
+  const [activeInstanceId, setActiveInstanceId] = useState<string | null>(null)
 
   return (
     <div className="rounded-md h-full overflow-hidden  text-white bg-gradient-to-b from-zinc-800 to-zinc-900">

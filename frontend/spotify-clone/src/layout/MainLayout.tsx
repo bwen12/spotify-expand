@@ -7,6 +7,7 @@ import {
 import LeftSidebar from "./components/LeftSidebar";
 import RightSidebar from "./components/RightSidebar";
 import AudioPlayer from "./components/AudioPlayer";
+import PlaybackControls from "./components/PlaybackControls";
 
 //So basically on our spotify page the side bars will be the same with the music and friends onl;y the middle will change
 //This is the main layout that will be used for all the pages
@@ -36,7 +37,13 @@ const MainLayout = () => {
         <ResizablePanel defaultSize={10} minSize={0} maxSize={30} collapsedSize={0}>
             <RightSidebar/>
         </ResizablePanel>
+      
       </ResizablePanelGroup>
+
+      {/* Footer or bottom bar for playback controls */}
+      <PlaybackControls />
+
+      
     </div>
   );
 };

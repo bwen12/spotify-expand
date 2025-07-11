@@ -1,6 +1,7 @@
 import type { Song } from "@/types/song";
 import SectionGridSkeleton from "../skeletons/SectionGridSkeleton";
 import { Button } from "@/components/ui/button";
+import PlayButton from "./PlayButton";
 
 type SectionGridProps = {
   title: string;
@@ -17,7 +18,10 @@ const SectionGrid = ({ title, songs, isLoading }: SectionGridProps) => {
     <div className="mb-8">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold text-white">{title}</h2>
-        <Button variant="link" className="text-sm text-zinc-300 hover:text-white">
+        <Button
+          variant="link"
+          className="text-sm text-zinc-300 hover:text-white"
+        >
           Show All
         </Button>
       </div>
@@ -35,6 +39,9 @@ const SectionGrid = ({ title, songs, isLoading }: SectionGridProps) => {
                   alt={song.title}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
+              </div>
+              <div className="absolute mb-1 right-2 bottom-2">
+                <PlayButton song={song} />
               </div>
             </div>
             <div>
