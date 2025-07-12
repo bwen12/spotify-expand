@@ -8,42 +8,59 @@ import LeftSidebar from "./components/LeftSidebar";
 import RightSidebar from "./components/RightSidebar";
 import AudioPlayer from "./components/AudioPlayer";
 import PlaybackControls from "./components/PlaybackControls";
+import { useEffect, useState } from "react";
 
 //So basically on our spotify page the side bars will be the same with the music and friends onl;y the middle will change
 //This is the main layout that will be used for all the pages
 const MainLayout = () => {
-  const isMobile = false;
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
   return (
     <div className="h-screen bg-black text-white flex flex-col">
-      <ResizablePanelGroup direction="horizontal" className="flex-1 flex h-full overflowhidden p-2">
+      <ResizablePanelGroup
+        direction="horizontal"
+        className="flex-1 flex h-full overflowhidden p-2"
+      >
         {/* This is not visisble just an audio element so that we can hear music*/}
-        <AudioPlayer /> 
-        
-        {/* Left side bar for songs */}
-        <ResizablePanel defaultSize={10} minSize={isMobile ? 0 : 20} maxSize={30} collapsedSize={0}>
-           <LeftSidebar />
-        </ResizablePanel>
+        <AudioPlayer />
 
-         <ResizableHandle />
-        
-        {/* Main Content page that can be swapped */}
-        <ResizablePanel defaultSize={isMobile ? 0 : 20} >
-            <Outlet />
+        {/* Left side bar for songs */}
+        <ResizablePanel defaultSize={10} minSize={isMobile ? 0 : 20} maxSize={30}collapsedSize={0}>
+          <LeftSidebar />
         </ResizablePanel>
 
         <ResizableHandle />
+
+        {/* Main Content page that can be swapped */}
+        <ResizablePanel defaultSize={isMobile ? 0 : 20}>
+          <Outlet />
+        </ResizablePanel>
+
         
         {/* Right side bar for friends */}
-        <ResizablePanel defaultSize={10} minSize={0} maxSize={30} collapsedSize={0}>
-            <RightSidebar/>
-        </ResizablePanel>
-      
+        {!isMobile && (
+          <>
+            <ResizableHandle />
+
+            <ResizablePanel defaultSize={10} minSize={0} maxSize={30} collapsedSize={0}>
+              <RightSidebar />
+            </ResizablePanel>
+          </>
+        )}
       </ResizablePanelGroup>
 
       {/* Footer or bottom bar for playback controls */}
       <PlaybackControls />
-
-      
     </div>
   );
 };

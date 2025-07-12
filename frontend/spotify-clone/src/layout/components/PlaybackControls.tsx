@@ -1,10 +1,9 @@
 import { usePlayerStore } from "@/stores/usePlayerStore";
-import { useEffect, useRef, useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { SkipBack, SkipForward, Volume1, VolumeX, Volume2 } from "lucide-react";
-import PlayButton from "@/components/ui/PlayButton";
 import { CirclePlay, CirclePause } from "lucide-react";
+import { useAudio } from "@/hooks/useAudio";
 
 const formatTime = (seconds: number) => {
   const minutes = Math.floor(seconds / 60);
@@ -15,56 +14,16 @@ const formatTime = (seconds: number) => {
 const PlaybackControls = () => {
   const { currentSong, togglePlayPause, playNext, playPrevious, isPlaying } =
     usePlayerStore();
-  const [volume, setVolume] = useState(75);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  useEffect(() => {
-    audioRef.current = document.querySelector("audio");
-    const audio = audioRef.current;
-    if (!audio) return;
-    const updateTime = () => setCurrentTime(audio.currentTime);
-    const updateDuration = () => setDuration(audio.duration);
-
-    audio.addEventListener("timeupdate", updateTime);
-    audio.addEventListener("loadedmetadata", updateDuration);
-
-    const handleEnded = () => {
-      usePlayerStore.setState({ isPlaying: false });
-    };
-    audio.addEventListener("ended", handleEnded);
-
-    return () => {
-      audio.removeEventListener("timeupdate", updateTime);
-      audio.removeEventListener("loadedmetadata", updateDuration);
-      audio.removeEventListener("ended", handleEnded);
-    };
-  }, [currentSong]);
-
-  // handle volume changes
-  const handleSeek = (value: number[]) => {
-    if (audioRef.current) {
-      audioRef.current.currentTime = value[0];
-    }
-  };
-
-  const handleMute = () => {
-    if (audioRef.current) {
-      audioRef.current.muted = !audioRef.current.muted;
-    }
-  };
-
-  const handleVolumeChange = (value: number[]) => {
-    const newVolume = value[0];
-    setVolume(newVolume);
-
-    if (audioRef.current) {
-      audioRef.current.volume = newVolume / 100;
-      // Auto-mute when volume is 0, unmute when volume > 0
-      audioRef.current.muted = newVolume === 0;
-    }
-  };
+  
+    const {
+    audioRef,
+    handleSeek,
+    handleMute,
+    handleVolumeChange,
+    volume,
+    currentTime,
+    duration,
+  } = useAudio();
 
   return (
     <footer className="h-16 sm:h-24 bg-zinc-900 border-t border-zinc-800 px-4">
@@ -101,14 +60,16 @@ const PlaybackControls = () => {
               variant="ghost"
               onClick={playPrevious}
               disabled={!currentSong}
+              className = "hover:text-white text-zinc-400"
             >
-              <SkipBack className="h-7 w-7" />
+              <SkipBack/>
             </Button>
             <Button
               size="icon"
               variant="ghost"
               onClick={togglePlayPause}
               disabled={!currentSong}
+              className = "hover:text-white text-zinc-400"
             >
               {isPlaying ? (
                 <CirclePause className="h-7 w-7" />
@@ -121,6 +82,7 @@ const PlaybackControls = () => {
               variant="ghost"
               onClick={playNext}
               disabled={!currentSong}
+              className = "hover:text-white text-zinc-400"
             >
               <SkipForward className="h-7 w-7" />
             </Button>

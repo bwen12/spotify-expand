@@ -2,6 +2,7 @@ import type { Song } from "@/types/song";
 import SectionGridSkeleton from "../skeletons/SectionGridSkeleton";
 import { Button } from "@/components/ui/button";
 import PlayButton from "./PlayButton";
+import { useAudio } from "@/hooks/useAudio";
 
 type SectionGridProps = {
   title: string;
@@ -10,6 +11,7 @@ type SectionGridProps = {
 };
 
 const SectionGrid = ({ title, songs, isLoading }: SectionGridProps) => {
+  const { playSong } = useAudio();
   if (isLoading) {
     return <SectionGridSkeleton />;
   }
@@ -31,6 +33,7 @@ const SectionGrid = ({ title, songs, isLoading }: SectionGridProps) => {
           <div
             key={song._id}
             className="bg-zinc-800/50 rounded-md overflow-hidden hover:bg-zinc-700/50 transition-colors group cursor-pointer p-4"
+            onClick={() => playSong(song)}
           >
             <div className="relative mb-4">
               <div className="aspect-square rounded-md shadow-lg overflow-hidden">

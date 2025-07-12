@@ -2,10 +2,11 @@ import { useMusicStore } from "@/stores/useMusicStore";
 import FeaturedGridSkeleton from "../skeletons/FeaturedGridSkeleton";
 import { CirclePlay } from "lucide-react";
 import PlayButton from "./PlayButton";
+import { useAudio } from "@/hooks/useAudio";
 
 const FeaturedSection = () => {
   const { featuredSongs, isLoading, error } = useMusicStore();
-
+  const { playSong } = useAudio();
   if (isLoading) {
     return <FeaturedGridSkeleton />;
   }
@@ -20,6 +21,7 @@ const FeaturedSection = () => {
         <div
           key={song._id}
           className="group flex items-center bg-zinc-800/50 rounded-md overflow-hidden hover:bg-zinc-700/50 transition-colors cursor-pointer relative"
+          onClick={() => playSong(song)}
         >
           <img
             src={song.imageUrl}

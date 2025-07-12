@@ -11,4 +11,5 @@ export interface PlayerStore {
   togglePlayPause: () => void;
   playNext: () => void;
   playPrevious: () => void;
+  playHomepageSong: (song: Song) => void;
 }

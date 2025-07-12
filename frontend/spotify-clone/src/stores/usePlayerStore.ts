@@ -8,13 +8,22 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
   isPlaying: false,
   queue: [],
   currentIndex: -1,
-  
 
   initializeQueue: (songs: Song[]) => {
     set({
       queue: songs,
       currentSong: get().currentSong || songs[0],
       currentIndex: get().currentIndex === -1 ? 0 : get().currentIndex,
+      isPlaying: true,
+    });
+  },
+
+  playHomepageSong: (song) => {
+    if (!song) return;
+    set({
+      currentSong: song,
+      queue: [song], // Single song queue
+      currentIndex: 0,
       isPlaying: true,
     });
   },
@@ -46,6 +55,18 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
 
   playNext: () => {
     const { queue, currentIndex } = get();
+    if (queue.length === 1) {
+      const currentSong = get().currentSong;
+      if (currentSong) {
+        // Force a state update to trigger AudioPlayer restart
+        set({
+          currentSong: { ...currentSong }, // Create new reference to trigger useEffect
+          currentIndex: 0,
+          isPlaying: true,
+        });
+      }
+      return;
+    }
     const nextIndex = currentIndex + 1;
     //if there is a next song to play, we will play it
     if (nextIndex < queue.length) {
@@ -63,6 +84,19 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
 
   playPrevious: () => {
     const { queue, currentIndex } = get();
+    // If queue has only 1 song (homepage), restart the same song
+    if (queue.length === 1) {
+      const currentSong = get().currentSong;
+      if (currentSong) {
+        // Force a state update to trigger AudioPlayer restart
+        set({
+          currentSong: { ...currentSong }, // Create new reference to trigger useEffect
+          currentIndex: 0,
+          isPlaying: true,
+        });
+      }
+      return;
+    }
     const prevIndex = currentIndex - 1;
     //if there is a previous song to play, we will play it
     if (prevIndex >= 0) {
