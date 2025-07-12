@@ -16,7 +16,7 @@ const loaderScreen = () => {
         {/* Modern text */}
         <div className="text-center space-y-2">
           <h2 className="text-2xl font-bold text-white tracking-tight">
-            Spotify Expand
+            Spotify Unreleased
           </h2>
           <p className="text-zinc-400 text-sm">Getting your music ready...</p>
         </div>

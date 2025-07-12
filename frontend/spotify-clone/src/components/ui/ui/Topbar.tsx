@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 
 const Topbar = () => {
   const { isAdmin } = useAuthStore();
-  console.log({ isAdmin });
+
   return (
     <div className="flex items-center justify-between p-4 sticky top-0 bg-zinc-900/75 backdrop-blur-md z-10">
       <div className="flex gaps-2 items-center">
@@ -26,12 +26,18 @@ const Topbar = () => {
       </div>
 
       <div className="flex gap-3 items-center ">
-        {isAdmin && (
-          <Link to={"/admin"} className = {cn(buttonVariants({ variant: "outline" }), "flex items-center gap-2 p-2 rounded-full hover:bg-zinc-800/70 transition-all duration-200")}>
+        <SignedIn>
+          <Link
+            to={"/admin"}
+            className={cn(
+              buttonVariants({ variant: "outline" }),
+              "flex items-center gap-2 p-2 rounded-full hover:bg-zinc-800/70 transition-all duration-200"
+            )}
+          >
             <LayoutDashboardIcon className="h-6 w-6 text-white mr-1.5" />
-            <span>Admin Dashboard</span>
+            {isAdmin ? <span>Admin Dashboard</span> : <span>Upload</span>}
           </Link>
-        )}
+        </SignedIn>
 
         <SignedOut>
           <div className="hover:scale-[1.02] hover:opacity-80 transition-all duration-200 ease-out">

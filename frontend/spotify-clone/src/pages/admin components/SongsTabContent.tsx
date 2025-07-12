@@ -10,6 +10,7 @@ import { Music, Plus } from "lucide-react";
 import SongsTable from "./SongsTable";
 
 const SongsTabContent = () => {
+
   return (
     <Card>
       <CardHeader>
@@ -19,8 +20,8 @@ const SongsTabContent = () => {
               <Music className="size-5 text-emerald-500 " />
               Songs Library
             </CardTitle>
-            <CardDescription className="text-zinc-400">
-              Manage your music tracks.
+            <CardDescription className="text-zinc-400 ">
+              See something missing? Add a new song
             </CardDescription>
           </div>
           <Button className="bg-emerald-500 hover:bg-emerald-600 text-white ">

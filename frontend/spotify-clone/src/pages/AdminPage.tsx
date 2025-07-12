@@ -7,11 +7,13 @@ import SongsTabContent from "./admin components/SongsTabContent";
 import AlbumTabContent from "./admin components/AlbumTabContent";
 import { useEffect } from "react";
 import { useMusicStore } from "@/stores/useMusicStore";
+import { useUser } from "@clerk/clerk-react";
 
 const AdminPage = () => {
   const { isAdmin, isLoading } = useAuthStore();
   const { fetchStats, fetchSongs, fetchAlbums } = useMusicStore();
-
+  const { isSignedIn, user, isLoaded } = useUser();
+  
   useEffect(() => {
     //fetch albums()
     fetchAlbums();
@@ -21,7 +23,7 @@ const AdminPage = () => {
     fetchStats();
   }, [fetchAlbums, fetchSongs, fetchStats]);
 
-  if (!isAdmin && !isLoading) {
+  if (!user && !isLoading) {
     return <div className="h-screen">Unauthorised</div>;
   }
 

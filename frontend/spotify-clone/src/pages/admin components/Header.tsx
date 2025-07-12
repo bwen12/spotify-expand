@@ -10,7 +10,7 @@ const Header = () => {
         </Link>
         <div className="flex flex-col">
           <h1 className="text-white text-3xl font-bold">Music Manager</h1>
-          <p className="text-zinc-400 text-sm mt-1">Manage your music library</p>
+          <p className="text-zinc-400 text-sm mt-1">Manage this library of unreleased music</p>
         </div>
       </div>
       <UserButton />
