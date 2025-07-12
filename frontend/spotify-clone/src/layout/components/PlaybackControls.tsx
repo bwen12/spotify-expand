@@ -11,19 +11,20 @@ const formatTime = (seconds: number) => {
   return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
 };
 
-const PlaybackControls = () => {
+type AudioHook = ReturnType<typeof import("@/hooks/useAudio").useAudio>;
+
+const PlaybackControls = ({
+  // these all come in from MainLayout now
+  audioRef,
+  handleSeek,
+  handleMute,
+  handleVolumeChange,
+  volume,
+  currentTime,
+  duration,
+}: AudioHook) => {
   const { currentSong, togglePlayPause, playNext, playPrevious, isPlaying } =
     usePlayerStore();
-  
-    const {
-    audioRef,
-    handleSeek,
-    handleMute,
-    handleVolumeChange,
-    volume,
-    currentTime,
-    duration,
-  } = useAudio();
 
   return (
     <footer className="h-16 sm:h-24 bg-zinc-900 border-t border-zinc-800 px-4">
@@ -60,16 +61,16 @@ const PlaybackControls = () => {
               variant="ghost"
               onClick={playPrevious}
               disabled={!currentSong}
-              className = "hover:text-white text-zinc-400"
+              className="hover:text-white text-zinc-400"
             >
-              <SkipBack/>
+              <SkipBack />
             </Button>
             <Button
               size="icon"
               variant="ghost"
               onClick={togglePlayPause}
               disabled={!currentSong}
-              className = "hover:text-white text-zinc-400"
+              className="hover:text-white text-zinc-400"
             >
               {isPlaying ? (
                 <CirclePause className="h-7 w-7" />
@@ -82,7 +83,7 @@ const PlaybackControls = () => {
               variant="ghost"
               onClick={playNext}
               disabled={!currentSong}
-              className = "hover:text-white text-zinc-400"
+              className="hover:text-white text-zinc-400"
             >
               <SkipForward className="h-7 w-7" />
             </Button>

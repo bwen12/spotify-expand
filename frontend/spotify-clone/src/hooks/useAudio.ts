@@ -14,7 +14,7 @@ export const useAudio = () => {
   // Audio state
   const audioRef = useRef<HTMLAudioElement>(null);
   const prevSongRef = useRef<string | null>(null);
-  const [volume, setVolume] = useState(75);
+  const [volume, setVolume] = useState(50);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
@@ -76,24 +76,21 @@ export const useAudio = () => {
 
   // PLAYBACK CONTROLS LOGIC AND STUFF
   useEffect(() => {
-    audioRef.current = document.querySelector("audio");
+    
     const audio = audioRef.current;
     if (!audio) return;
     const updateTime = () => setCurrentTime(audio.currentTime);
     const updateDuration = () => setDuration(audio.duration);
 
-   //If currentSong is null, reset time and duration
-   const handleEnded = () => {
-      usePlayerStore.setState({ isPlaying: false });
-    };
+   
     audio.addEventListener("timeupdate", updateTime);
     audio.addEventListener("loadedmetadata", updateDuration);
-    audio.addEventListener("ended", handleEnded);
+    
 
     return () => {
       audio.removeEventListener("timeupdate", updateTime);
       audio.removeEventListener("loadedmetadata", updateDuration);
-      audio.removeEventListener("ended", handleEnded);
+      
     };
   }, [currentSong]);
 

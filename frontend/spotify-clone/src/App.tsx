@@ -7,6 +7,7 @@ import MainLayout from "./layout/MainLayout.tsx";
 import ChatPage from "./pages/ChatPage.tsx";
 import AlbumPage from "./pages/AlbumPage.tsx";
 import AdminPage from "./pages/AdminPage.tsx";
+import {Toaster} from "react-hot-toast";
 function App() {
   return (
     <>
@@ -30,6 +31,7 @@ function App() {
           <Route path="/auth-callback" element={<AuthCallbackPage />} />
           <Route path="/admin" element={<AdminPage />} />
         </Routes>
+        <Toaster/>
       </header>
     </>
   );
