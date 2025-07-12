@@ -1,6 +1,6 @@
 import { use, useEffect, useRef } from "react";
 import { usePlayerStore } from "@/stores/usePlayerStore";
-
+//TODO REFACTOR THE LOGIC HERE INTO A CUSTOM HOOK 
 const AudioPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const prevSongRef = useRef<string | null>(null);

@@ -3,7 +3,7 @@ import type { Song } from "./song";
 export interface PlayerStore {
   currentSong: Song | null;
   isPlaying: boolean;
-  queue: Song[]; 
+  queue: Song[];
   currentIndex: number;
   initializeQueue: (songs: Song[]) => void;
   playAlbum: (songs: Song[], startIndex?: number) => void;

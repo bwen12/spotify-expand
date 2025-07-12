@@ -2,10 +2,9 @@ import { usePlayerStore } from "@/stores/usePlayerStore";
 import { useEffect, useRef, useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import { SkipBack, SkipForward } from "lucide-react";
+import { SkipBack, SkipForward, Volume1, VolumeX, Volume2 } from "lucide-react";
 import PlayButton from "@/components/ui/PlayButton";
 import { CirclePlay, CirclePause } from "lucide-react";
-import { formatDuration } from "@/pages/AlbumPage";
 
 const formatTime = (seconds: number) => {
   const minutes = Math.floor(seconds / 60);
@@ -50,6 +49,23 @@ const PlaybackControls = () => {
     }
   };
 
+  const handleMute = () => {
+    if (audioRef.current) {
+      audioRef.current.muted = !audioRef.current.muted;
+    }
+  };
+
+  const handleVolumeChange = (value: number[]) => {
+    const newVolume = value[0];
+    setVolume(newVolume);
+
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume / 100;
+      // Auto-mute when volume is 0, unmute when volume > 0
+      audioRef.current.muted = newVolume === 0;
+    }
+  };
+
   return (
     <footer className="h-16 sm:h-24 bg-zinc-900 border-t border-zinc-800 px-4">
       <div className="grid grid-cols-3 items-center h-full">
@@ -76,6 +92,7 @@ const PlaybackControls = () => {
         </div>
 
         {/* We want the play button, foward button, back button, etc to stack on top of the slider so flex flex-col */}
+        {/* Skip, back and play button in middle */}
         <div className="flex flex-col items-center gap-2">
           {/* This is where we put the button and we want them horizontal so flex */}
           <div className="flex items-center justify-center gap-4 sm:gap-5">
@@ -123,6 +140,32 @@ const PlaybackControls = () => {
               {formatTime(duration)}
             </div>
           </div>
+        </div>
+
+        {/* Volume control on the right*/}
+        <div className=" hidden sm:flex items-center justify-end gap-4">
+          <Button
+            size="icon"
+            variant="ghost"
+            className="hover:text-white text-zinc-400 flex-shrink-0"
+            onClick={handleMute}
+          >
+            {audioRef.current?.muted || volume === 0 ? (
+              <VolumeX className="h-5 w-5" />
+            ) : volume > 65 ? (
+              <Volume2 className="h-5 w-5" />
+            ) : (
+              <Volume1 className="h-5 w-5" />
+            )}
+          </Button>
+
+          <Slider
+            value={[volume]}
+            max={100}
+            step={1}
+            className="flex-1 max-w-[400px] hover:cursor-grab active:cursor-grabbing"
+            onValueChange={handleVolumeChange}
+          />
         </div>
       </div>
     </footer>

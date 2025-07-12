@@ -4,6 +4,7 @@ import { useMusicStore } from "@/stores/useMusicStore";
 import FeaturedSection from "@/components/ui/FeaturedSection";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import SectionGrid from "@/components/ui/SectionGrid";
+import { usePlayerStore } from "@/stores/usePlayerStore";
 const HomePage = () => {
   const {
     featuredSongs,
@@ -23,7 +24,8 @@ const HomePage = () => {
   
   //TODO : Manage active instance so play button doesnt appear on every song
   const [activeInstanceId, setActiveInstanceId] = useState<string | null>(null)
-
+  const { initializeQueue} = usePlayerStore();
+  
   return (
     <div className="rounded-md h-full overflow-hidden  text-white bg-gradient-to-b from-zinc-800 to-zinc-900">
       <Topbar />
