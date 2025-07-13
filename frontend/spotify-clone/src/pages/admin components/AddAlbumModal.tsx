@@ -78,7 +78,7 @@ const AddAlbumModal = () => {
       <DialogTrigger asChild>
         <Button
           variant="default"
-          className="bg-emerald-500 hover:bg-emerald-500 text-white"
+          className="bg-emerald-500 hover:bg-emerald-600 text-white transition-all duration-200 hover:scale-102 hover:shadow-md cursor-pointer"
           onClick={() => setModalOpen(true)}
         >
           Add Album

@@ -3,6 +3,7 @@ import { useAuth } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
 import LoaderScreen from "@/components/ui/loaderScreen";
 import { useAuthStore } from "../stores/useAuthStore";
+import { useChatStore } from "@/stores/useChatStore";
 
 const updateApiToken = (token: string | null) => {
   if (token) {
@@ -13,9 +14,10 @@ const updateApiToken = (token: string | null) => {
 };
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { getToken } = useAuth();
+  const { getToken, userId } = useAuth();
   const [loading, setLoading] = useState(true);
   const { checkAdminStatus } = useAuthStore();
+  const { initSocket, disconnectSocket } = useChatStore();
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -23,8 +25,14 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const token = await getToken();
         updateApiToken(token);
         if (token) {
-          // if user is authenitcated with token check if the user is admin
+          // if user is authenitcated with token, check if the user is admin
           await checkAdminStatus();
+          
+          // Initialize the chat socket connection with userId
+          // This will only be called if the user is authenticated with token
+          if(userId) {
+            initSocket(userId);
+          }
         }
       } catch (error) {
         updateApiToken(null);
@@ -35,7 +43,12 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     fetchToken();
-  }, [getToken]);
+
+    //clean up 
+    return () => {
+      disconnectSocket();
+    };
+  }, [getToken, checkAdminStatus, userId, initSocket, disconnectSocket]);
 
   if (loading) {
     return <LoaderScreen />;

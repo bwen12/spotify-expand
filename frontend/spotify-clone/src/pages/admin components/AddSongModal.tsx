@@ -99,7 +99,7 @@ const AddSongModal = () => {
       <DialogTrigger asChild>
         <Button
           variant="default"
-          className="bg-emerald-500 hover:bg-emerald-500 text-white"
+          className="bg-emerald-500 hover:bg-emerald-600 text-white cursor-pointer transition-all duration-200 hover:scale-102 hover:shadow-md"
           onClick={() => setModalOpen(true)}
         >
           Add Song

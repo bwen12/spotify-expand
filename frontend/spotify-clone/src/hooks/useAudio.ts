@@ -14,7 +14,7 @@ export const useAudio = () => {
   // Audio state
   const audioRef = useRef<HTMLAudioElement>(null);
   const prevSongRef = useRef<string | null>(null);
-  const [volume, setVolume] = useState(50);
+  const [volume, setVolume] = useState(30);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 

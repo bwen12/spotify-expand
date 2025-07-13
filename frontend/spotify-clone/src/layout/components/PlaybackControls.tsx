@@ -27,7 +27,7 @@ const PlaybackControls = ({
     usePlayerStore();
 
   return (
-    <footer className="h-16 sm:h-24 bg-zinc-900 border-t border-zinc-800 px-4">
+    <footer className="h-16 sm:h-24 bg-zinc-900 border-t border-zinc-800 px-6">
       <div className="grid grid-cols-3 items-center h-full">
         {/* current playing song info */}
         <div className="hidden sm:flex items-center gap-5 min-w-[180px]">
@@ -36,7 +36,7 @@ const PlaybackControls = ({
               <img
                 src={currentSong.imageUrl}
                 alt={currentSong.title}
-                className="w-14 h-14 object-cover rounded-md"
+                className="w-18 h-18 object-cover rounded-md"
               />
 
               <div className="flex flex-col min-w-0">

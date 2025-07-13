@@ -12,11 +12,18 @@ import authRoutes from "./routes/auth.route.js";
 import songRoutes from "./routes/song.route.js";
 import albumRoutes from "./routes/album.route.js";
 import statRoutes from "./routes/stat.route.js";
-
+import { createServer } from "http";
+import { initializeSocket } from "./lib/socket.js";
 dotenv.config();
 const __dirname = path.resolve();
 const app = express();
 const PORT = process.env.PORT;
+
+const httpServer = createServer(app);
+initializeSocket(httpServer);
+
+
+
 app.use(cors(
   {
     origin: "http://localhost:5173", // Allow requests from this origin
@@ -46,9 +53,9 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: process.env.NODE_ENV === "production"? "Internal Server Error" : err.message });
 });
 
-app.listen(PORT, () => {
+httpServer.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   connectDB();
 });
 
-//to socket.io will be added later
+//Building Socket.IO server

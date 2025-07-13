@@ -26,7 +26,7 @@ const LeftSidebar = () => {
         <div className="space-y-3">
           <Link
             to={"/"}
-            className="flex items-center justify-start p-3 rounded-lg text-white hover:text-green-500 hover:bg-zinc-800/50 transition-all duration-200 group relative"
+            className="flex items-center justify-start p-3 rounded-lg text-white hover:text-green-500 hover:bg-zinc-800/50 transition-all hover:scale-102 hover:shadow-md duration-200 group relative"
           >
             <HomeIcon className="h-6 w-6" />
             <span className="ml-3 font-bold hidden md:inline">Home</span>
@@ -41,7 +41,7 @@ const LeftSidebar = () => {
           <div className="space-y-3 mt-3">
             <Link
               to={"/chat"}
-              className="flex items-center justify-start p-3 rounded-lg text-white hover:text-green-500 hover:bg-zinc-800/50 transition-all duration-200 group relative"
+              className="flex items-center justify-start p-3 rounded-lg text-white hover:text-green-500 hover:bg-zinc-800/50 transition-all duration-200 hover:scale-102 hover:shadow-md group relative"
             >
               <MessageCircle className="h-6 w-6" />
               <span className="ml-3 font-bold hidden md:inline">Chats</span>
