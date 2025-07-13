@@ -3,7 +3,7 @@ import { axiosInstance } from "@/lib/axios";
 import type { MusicStore } from "@/types/musicStore";
 import toast from "react-hot-toast";
 
-export const useMusicStore = create<MusicStore>((set) => ({
+export const useMusicStore = create<MusicStore>((set, get) => ({
   albums: [],
   songs: [],
   error: null,
@@ -112,10 +112,11 @@ export const useMusicStore = create<MusicStore>((set) => ({
       set((state) => ({
         songs: state.songs.filter((song) => song._id !== id),
       }));
+      await get().fetchStats(); // Update stats after deletion
       toast.success("Song deleted successfully");
     } catch (error: any) {
       set({ error: error.response.data.message });
-      toast.error(`Song is part of album, delete album first`);
+      toast.error(`Song deleted failed`);
     } finally {
       set({ isLoading: false });
     }
@@ -133,6 +134,7 @@ export const useMusicStore = create<MusicStore>((set) => ({
             : song
         ),
       }));
+      await get().fetchStats();
       toast.success("Album deleted successfully");
     } catch (error: any) {
       set({ error: error.response.data.message });

@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Music, Plus } from "lucide-react";
 import SongsTable from "./SongsTable";
+import AddSongModal from "./AddSongModal";
 
 const SongsTabContent = () => {
 
@@ -24,10 +25,7 @@ const SongsTabContent = () => {
               See something missing? Add a new song
             </CardDescription>
           </div>
-          <Button className="bg-emerald-500 hover:bg-emerald-600 text-white ">
-            <Plus className="size-4 mr-1" />
-            Add New Song
-          </Button>
+          <AddSongModal />
         </div>
       </CardHeader>
       <CardContent>

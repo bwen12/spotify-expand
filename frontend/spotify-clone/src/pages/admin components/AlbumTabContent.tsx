@@ -1,11 +1,37 @@
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Library, Music } from "lucide-react";
+import SongsTable from "./SongsTable";
+import AddAlbumModal from "./AddAlbumModal";
+import AlbumsTable from "./AlbumsTable";
+
 const AlbumTabContent = () => {
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-semibold mb-4">Manage Albums</h2>
-      {/* Album management content goes here */}
-      <p>Album management content will be displayed here.</p>
-    </div>
+    <Card>
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <div>
+            <CardTitle className="flex items-center gap-2">
+              <Library className="size-5 text-violet-500 " />
+              Album Library
+            </CardTitle>
+            <CardDescription className="text-zinc-400 ">
+              Add your favourite un-released album or your own custom album
+            </CardDescription>
+          </div>
+          <AddAlbumModal />
+        </div>
+      </CardHeader>
+      <CardContent>
+        <AlbumsTable />
+      </CardContent>
+    </Card>
   );
-}
+};
 
 export default AlbumTabContent;

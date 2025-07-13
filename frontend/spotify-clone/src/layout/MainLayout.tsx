@@ -31,7 +31,7 @@ const MainLayout = () => {
     <div className="h-screen bg-black text-white flex flex-col">
       <ResizablePanelGroup
         direction="horizontal"
-        className="flex-1 flex h-full overflowhidden p-2"
+        className="flex-1 flex h-full overflow-hidden p-2"
       >
         {/* This is not visisble just an audio element so that we can hear music*/}
         <audio
@@ -41,14 +41,14 @@ const MainLayout = () => {
         />
 
         {/* Left side bar for songs */}
-        <ResizablePanel defaultSize={10} minSize={isMobile ? 0 : 20} maxSize={30}collapsedSize={0}>
+        <ResizablePanel defaultSize={8} minSize={!isMobile ? 15 : 0} maxSize={22} collapsedSize={0}>
           <LeftSidebar />
         </ResizablePanel>
 
         <ResizableHandle />
 
         {/* Main Content page that can be swapped */}
-        <ResizablePanel defaultSize={isMobile ? 0 : 20}>
+        <ResizablePanel defaultSize={isMobile ? 0 : 20} >
           <Outlet />
         </ResizablePanel>
 
@@ -58,7 +58,7 @@ const MainLayout = () => {
           <>
             <ResizableHandle />
 
-            <ResizablePanel defaultSize={10} minSize={0} maxSize={30} collapsedSize={0}>
+            <ResizablePanel defaultSize={8} minSize={0} maxSize={20} collapsedSize={0}>
               <RightSidebar />
             </ResizablePanel>
           </>
