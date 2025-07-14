@@ -41,7 +41,7 @@ const MainLayout = () => {
         />
 
         {/* Left side bar for songs */}
-        <ResizablePanel defaultSize={8} minSize={!isMobile ? 15 : 0} maxSize={22} collapsedSize={0}>
+        <ResizablePanel defaultSize={8} minSize={!isMobile ? 10 : 0} maxSize={15} collapsedSize={0}>
           <LeftSidebar />
         </ResizablePanel>
 
@@ -58,7 +58,7 @@ const MainLayout = () => {
           <>
             <ResizableHandle />
 
-            <ResizablePanel defaultSize={8} minSize={0} maxSize={17} collapsedSize={0}>
+            <ResizablePanel defaultSize={8} minSize={0} maxSize={13} collapsedSize={0}>
               <RightSidebar />
             </ResizablePanel>
           </>

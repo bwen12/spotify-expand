@@ -21,20 +21,24 @@ const ChatPage = () => {
     <main className="h-full rounded-lg bg-gradient-to-b from-zinc-800 to-zinc-900 overflow-hidden">
       <Topbar />
       <div className="grid lg:grid-cols-[300px_1fr] grid-cols-[80px_1fr] h-[calc(100vh-180px)]">
-        <UsersList />
+        <div className="border-r border-zinc-500 pt-4">
+          <UsersList />
+        </div>
 
         {/* Chat messages section */}
-        {selectedUser ? (
-          <div className="h-full flex flex-col min-h-0">
-            <ChatHeader />
-            <div className="flex-1 flex flex-col min-h-0">
-              <ChatWindow />
+        <div className="h-full flex flex-col min-h-0 pt-4">
+          {selectedUser ? (
+            <div className="h-full flex flex-col min-h-0 pt-4">
+              <ChatHeader />
+              <div className="flex-1 flex flex-col min-h-0">
+                <ChatWindow />
+              </div>
+              <MessageInput />
             </div>
-            <MessageInput />
-          </div>
-        ) : (
-          <ChatPlaceholder />
-        )}
+          ) : (
+            <ChatPlaceholder />
+          )}
+        </div>
       </div>
     </main>
   );
