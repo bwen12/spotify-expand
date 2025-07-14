@@ -35,7 +35,7 @@ const Topbar = () => {
             )}
           >
             <LayoutDashboardIcon className="h-6 w-6 text-white mr-1.5" />
-            {isAdmin ? <span>Admin Dashboard</span> : <span>Upload</span>}
+            {isAdmin ? <span>Admin Dashboard</span> : <span>Contribute Songs</span>}
           </Link>
         </SignedIn>
 

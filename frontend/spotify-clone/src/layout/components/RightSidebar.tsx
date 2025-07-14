@@ -55,6 +55,7 @@ const RightSidebar = () => {
                   key={user._id}
                   className="flex items-center gap-3 p-2 rounded-lg hover:bg-zinc-800/50 transition-all duration-200 cursor-pointer group relative"
                 >
+                  <div className="relative size-10">
                   <Avatar className="size-10 border border-zinc-800 relative">
                     <AvatarImage
                       src={user.imageUrl}
@@ -70,6 +71,7 @@ const RightSidebar = () => {
                         : "bg-zinc-500"
                     }`}
                   />
+                  </div>
                   <div className="flex flex-col gap-0.5 -mt-1">
                     <span className="text-white font-semibold mt-3">
                       {user.fullName}
