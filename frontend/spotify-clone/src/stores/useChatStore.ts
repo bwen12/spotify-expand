@@ -16,7 +16,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
     users: [],
     isLoading: false,
     error: null,
-    socket: null,
+    socket: socket,
     isConnected: false,
     onlineUsers: new Set(),
     userActivities: new Map(),
@@ -68,6 +68,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
                 });
             }); 
 
+            //Name is important backend is "recieve_message"
             socket.on("receive_message", (message: Message) => {
                 set((state) => ({
                     messages: [...state.messages, message],

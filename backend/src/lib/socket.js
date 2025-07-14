@@ -55,7 +55,7 @@ export const initializeSocket = (server) => {
         //as they are online
         if (receiverSocketId) {
           // Emit the message to the receiver
-          io.to(receiverSocketId).emit("recieve_message", message);
+          io.to(receiverSocketId).emit("receive_message", message);
         }
         // Dont emit to all users, just the sender so use socket.emit
         socket.emit("message_sent", message); 
