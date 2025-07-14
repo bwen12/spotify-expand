@@ -17,7 +17,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { getToken, userId } = useAuth();
   const [loading, setLoading] = useState(true);
   const { checkAdminStatus } = useAuthStore();
-  const { initSocket, disconnectSocket } = useChatStore();
+  const { initSocket, disconnectSocket, fetchUsers } = useChatStore();
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -31,7 +31,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           // Initialize the chat socket connection with userId
           // This will only be called if the user is authenticated with token
           if(userId) {
-            initSocket(userId);
+            await initSocket(userId);
+            await fetchUsers();
           }
         }
       } catch (error) {

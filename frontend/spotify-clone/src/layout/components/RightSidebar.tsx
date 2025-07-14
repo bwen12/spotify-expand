@@ -11,10 +11,7 @@ const RightSidebar = () => {
     useChatStore();
   const { user, isLoaded } = useUser();
 
-  //if user is signed in, fetch users from the store
-  useEffect(() => {
-    if (user && isLoaded) fetchUsers();
-  }, [fetchUsers, user, isLoaded]);
+  
 
   // Wait until user data is loaded
   if (!isLoaded) return null;
@@ -78,10 +75,10 @@ const RightSidebar = () => {
                     </span>
                     {isPlaying ? (
                       <div className="flex flex-col -mt-0.5">
-                        <div className="text-xs text-zinc-400 font-medium truncate">
+                        <div className="text-xs text-zinc-400 font-medium ">
                           {activity.replace("Playing ", "").split("by")[0]}
                         </div>
-                        <div className="text-xs text-zinc-400 truncate">
+                        <div className="text-xs text-zinc-400 ">
                           {isPlaying && (
                             <Music className="inline h-3 w-4 text-emerald-400 -ml-1" />
                           )}
