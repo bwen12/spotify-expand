@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { axiosInstance } from "@/lib/axios";
 import type { PlayerStore } from "@/types/playerStore";
 import type { Song } from "@/types/song";
+import { useChatStore } from "./useChatStore";
 
 export const usePlayerStore = create<PlayerStore>((set, get) => ({
   currentSong: null,
@@ -9,9 +10,10 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
   queue: [],
   currentIndex: -1,
   volume: 50,
-  
-  
-  setVolume: (value: number) => {set({ volume: value }) },
+
+  setVolume: (value: number) => {
+    set({ volume: value });
+  },
 
   initializeQueue: (songs: Song[]) => {
     set({
@@ -33,16 +35,31 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
 
   playAlbum: (songs: Song[], startIndex = 0) => {
     if (songs.length === 0) return;
+    const song = songs[startIndex];
+    const socket = useChatStore.getState().socket;
+    if (socket.auth) {
+      socket.emit("update_activity", {
+        userId: socket.auth.userId,
+        activity: `Playing ${song.title} by ${song.artist}`,
+      });
+    }
     set({
       queue: songs,
       currentIndex: startIndex,
-      currentSong: songs[startIndex],
+      currentSong: song,
       isPlaying: true,
     });
   },
 
   setCurrentSong: (song) => {
     if (!song) return;
+    const socket = useChatStore.getState().socket;
+    if (socket.auth) {
+      socket.emit("update_activity", {
+        userId: socket.auth.userId,
+        activity: `Playing ${song.title} by ${song.artist}`,
+      });
+    }
     const songIndex = get().queue.findIndex((s) => s._id === song._id);
     set({
       currentSong: song,
@@ -53,6 +70,17 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
 
   togglePlayPause: () => {
     const willStartPlaying = !get().isPlaying;
+    const currentSong = get().currentSong;
+    const socket = useChatStore.getState().socket;
+    if (socket.auth) {
+      socket.emit("update_activity", {
+        userId: socket.auth.userId,
+        activity:
+          willStartPlaying && currentSong
+            ? `Playing ${currentSong?.title} by ${currentSong?.artist}`
+            : "Idle",
+      });
+    }
     set({ isPlaying: willStartPlaying });
   },
 
@@ -74,6 +102,14 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     //if there is a next song to play, we will play it
     if (nextIndex < queue.length) {
       const nextSong = queue[nextIndex];
+      const socket = useChatStore.getState().socket;
+      if (socket.auth) {
+        socket.emit("update_activity", {
+          userId: socket.auth.userId,
+          activity: `Playing ${nextSong.title} by ${nextSong.artist}`,
+        });
+      }
+
       set({
         currentSong: nextSong,
         currentIndex: nextIndex,
@@ -82,6 +118,14 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     } else {
       //no next song
       set({ isPlaying: false });
+      
+      const socket = useChatStore.getState().socket;
+      if (socket.auth) {
+        socket.emit("update_activity", {
+          userId: socket.auth.userId,
+          activity: `Idle`,
+        });
+      }
     }
   },
 
@@ -104,6 +148,14 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     //if there is a previous song to play, we will play it
     if (prevIndex >= 0) {
       const prevSong = queue[prevIndex];
+      const socket = useChatStore.getState().socket;
+      if (socket.auth) {
+        socket.emit("update_activity", {
+          userId: socket.auth.userId,
+          activity: `Playing ${prevSong.title} by ${prevSong.artist}`,
+        });
+      }
+
       set({
         currentSong: prevSong,
         currentIndex: prevIndex,
@@ -112,6 +164,13 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     } else {
       //no previous song
       set({ isPlaying: false });
+      const socket = useChatStore.getState().socket;
+      if (socket.auth) {
+        socket.emit("update_activity", {
+          userId: socket.auth.userId,
+          activity: `Idle`,
+        });
+      }
     }
   },
 }));

@@ -11,6 +11,7 @@ export const useAudio = () => {
     playNext,
     volume,
     setVolume,
+    setCurrentSong
   } = usePlayerStore();
 
   // Audio state
@@ -23,16 +24,18 @@ export const useAudio = () => {
     return currentSong?._id === song._id;
   };
 
+  // you were accidently using setHomepageSong which 
+  //is only for queueing one song so thats why is was bugging out dummy
   const playSong = (song: Song) => {
     const isCurrent = currentSong?._id === song._id;
     if (isCurrent) {
       togglePlayPause();
     } else {
-      playHomepageSong(song);
+      setCurrentSong(song);
     }
   };
 
-  //handle pplay/pause logic
+  //handle play/pause logic
   useEffect(() => {
     if (isPlaying) {
       audioRef.current?.play();

@@ -31,7 +31,7 @@ export const initializeSocket = (server) => {
 
     
     /*The user activity  */
-    socket.on("update_activity", (userId, activity) => {
+    socket.on("update_activity", ({userId, activity}) => {
       console.log("Activity update received:", userId, activity);
       //Basically updating the map with the new activity
       userActivities.set(userId, activity);
