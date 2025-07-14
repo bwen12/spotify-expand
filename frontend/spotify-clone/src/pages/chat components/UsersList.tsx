@@ -13,7 +13,7 @@ const UsersList = () => {
     selectedUser,
   } = useChatStore();
   return (
-    <div className="border-r border-zinc-800">
+    <div className="border-r border-zinc-500">
       <div className=" flex flex-col h-full">
         <ScrollArea className="h-full">
           <div className="space-y-2 p-4">
