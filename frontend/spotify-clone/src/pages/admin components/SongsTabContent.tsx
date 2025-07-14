@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Music, Plus } from "lucide-react";
+import { Music } from "lucide-react";
 import SongsTable from "./SongsTable";
 import AddSongModal from "./AddSongModal";
 

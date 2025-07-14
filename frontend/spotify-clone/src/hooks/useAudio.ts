@@ -1,13 +1,12 @@
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import type { Song } from "@/types/song";
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const useAudio = () => {
   const {
     currentSong,
     isPlaying,
     togglePlayPause,
-    playHomepageSong,
     playNext,
     volume,
     setVolume,

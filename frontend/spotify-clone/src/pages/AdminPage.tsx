@@ -10,10 +10,10 @@ import { useMusicStore } from "@/stores/useMusicStore";
 import { useUser } from "@clerk/clerk-react";
 
 const AdminPage = () => {
-  const { isAdmin, isLoading } = useAuthStore();
+  const { isLoading } = useAuthStore();
   const { fetchStats, fetchSongs, fetchAlbums } = useMusicStore();
-  const { isSignedIn, user, isLoaded } = useUser();
-  
+  const { user } = useUser();
+
   useEffect(() => {
     //fetch albums()
     fetchAlbums();

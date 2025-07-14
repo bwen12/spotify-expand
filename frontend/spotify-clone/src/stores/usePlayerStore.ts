@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { axiosInstance } from "@/lib/axios";
 import type { PlayerStore } from "@/types/playerStore";
 import type { Song } from "@/types/song";
 import { useChatStore } from "./useChatStore";

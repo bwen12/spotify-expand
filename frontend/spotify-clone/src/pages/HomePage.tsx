@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Topbar from "../components/ui/ui/Topbar";
 import { useMusicStore } from "@/stores/useMusicStore";
 import FeaturedSection from "@/components/ui/FeaturedSection";
@@ -7,11 +7,9 @@ import SectionGrid from "@/components/ui/SectionGrid";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 const HomePage = () => {
   const {
-    featuredSongs,
     trendingSongs,
     madeForYouSongs,
     songs,
-    fetchFeaturedSongs,
     fetchTrendingSongs,
     fetchMadeForYouSongs,
     fetchSongs,
@@ -24,7 +22,7 @@ const HomePage = () => {
   }, []);
 
   //TODO : Manage active instance so play button doesnt appear on every song
-  const [activeInstanceId, setActiveInstanceId] = useState<string | null>(null);
+  //const [activeInstanceId, setActiveInstanceId] = useState<string | null>(null);
   const { initializeQueue } = usePlayerStore();
 
   useEffect(() => {

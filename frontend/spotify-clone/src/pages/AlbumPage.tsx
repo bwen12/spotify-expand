@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import Topbar from "../components/ui/ui/Topbar";
 import { useMusicStore } from "@/stores/useMusicStore";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { useEffect, useState } from "react";

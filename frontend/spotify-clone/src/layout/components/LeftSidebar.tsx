@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 
 const LeftSidebar = () => {
-  const { albums, fetchAlbums, isLoading, currentAlbum } = useMusicStore();
+  const { albums, fetchAlbums, isLoading } = useMusicStore();
   const { currentSong, isPlaying } = usePlayerStore();
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
 import { SkipBack, SkipForward, Volume1, VolumeX, Volume2 } from "lucide-react";
 import { CirclePlay, CirclePause } from "lucide-react";
-import { useAudio } from "@/hooks/useAudio";
+
 
 const formatTime = (seconds: number) => {
   const minutes = Math.floor(seconds / 60);

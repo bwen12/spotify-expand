@@ -1,12 +1,9 @@
 import Topbar from "@/components/ui/ui/Topbar";
-import { useChatStore } from "@/stores/useChatStore";
-import { useUser } from "@clerk/clerk-react";
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 import UsersList from "./chat components/UsersList";
 import ChatPlaceholder from "./chat components/ChatPlaceholder";
 import ChatHeader from "./chat components/ChatHeader";
 import useChatPage from "@/hooks/useChatPage";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import ChatWindow from "./chat components/ChatWindow";
 import MessageInput from "./chat components/MessageInput";
 

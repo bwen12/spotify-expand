@@ -4,7 +4,7 @@ import type { ChatStore } from "@/types/chatStore";
 import { io } from "socket.io-client";
 import type { Message } from '@/types/message';
 
-const baseURL = "http://localhost:5000"; 
+const baseURL = import.meta.env.MODE === "development" ? "http://localhost:5000" : "/"
 
 const socket = io(baseURL, {
   autoConnect: false, // only connect if user is authenitcated

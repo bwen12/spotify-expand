@@ -3,7 +3,6 @@ import { LayoutDashboardIcon } from "lucide-react";
 import {
   SignedIn,
   SignedOut,
-  SignOutButton,
   UserButton,
 } from "@clerk/clerk-react";
 import SignInOauthButtons from "../SignInOauthButtons";

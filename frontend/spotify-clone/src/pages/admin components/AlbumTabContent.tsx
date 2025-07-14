@@ -5,8 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Library, Music } from "lucide-react";
-import SongsTable from "./SongsTable";
+import { Library} from "lucide-react";
 import AddAlbumModal from "./AddAlbumModal";
 import AlbumsTable from "./AlbumsTable";
 

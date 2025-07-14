@@ -1,6 +1,5 @@
-import { usePlayerStore } from "@/stores/usePlayerStore";
 import type { Song } from "@/types/song";
-import { CirclePlay, Pause, Play, CirclePause } from "lucide-react";
+import { CirclePlay, CirclePause } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAudio } from "@/hooks/useAudio";
 

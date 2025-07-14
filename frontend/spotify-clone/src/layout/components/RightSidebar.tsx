@@ -1,13 +1,13 @@
 import { Music, Users } from "lucide-react";
 import { useChatStore } from "@/stores/useChatStore";
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 import { useUser } from "@clerk/clerk-react";
 import LoginPrompt from "@/components/ui/loginPrompt";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const RightSidebar = () => {
-  const { users, fetchUsers, isLoading, error, onlineUsers, userActivities } =
+  const { users, fetchUsers, onlineUsers, userActivities } =
     useChatStore();
   const { user, isLoaded } = useUser();
 
