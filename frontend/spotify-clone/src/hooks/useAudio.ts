@@ -9,12 +9,13 @@ export const useAudio = () => {
     togglePlayPause,
     playHomepageSong,
     playNext,
+    volume,
+    setVolume,
   } = usePlayerStore();
 
   // Audio state
   const audioRef = useRef<HTMLAudioElement>(null);
   const prevSongRef = useRef<string | null>(null);
-  const [volume, setVolume] = useState(30);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
@@ -76,25 +77,29 @@ export const useAudio = () => {
 
   // PLAYBACK CONTROLS LOGIC AND STUFF
   useEffect(() => {
-    
     const audio = audioRef.current;
     if (!audio) return;
     const updateTime = () => setCurrentTime(audio.currentTime);
     const updateDuration = () => setDuration(audio.duration);
 
-   
     audio.addEventListener("timeupdate", updateTime);
     audio.addEventListener("loadedmetadata", updateDuration);
-    
 
     return () => {
       audio.removeEventListener("timeupdate", updateTime);
       audio.removeEventListener("loadedmetadata", updateDuration);
-      
     };
   }, [currentSong]);
 
-  // handle volume changes
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume / 100;
+      audioRef.current.muted = volume === 0;
+    }
+  }, [volume, currentSong]);
+
+  
+  //Handles current time updates
   const handleSeek = (value: number[]) => {
     if (audioRef.current) {
       audioRef.current.currentTime = value[0];

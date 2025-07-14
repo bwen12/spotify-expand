@@ -5,6 +5,8 @@ export interface PlayerStore {
   isPlaying: boolean;
   queue: Song[];
   currentIndex: number;
+  volume: number;
+  setVolume: (volume: number) => void;
   initializeQueue: (songs: Song[]) => void;
   playAlbum: (songs: Song[], startIndex?: number) => void;
   setCurrentSong: (song: Song) => void;

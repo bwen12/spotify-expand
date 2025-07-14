@@ -8,6 +8,10 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
   isPlaying: false,
   queue: [],
   currentIndex: -1,
+  volume: 50,
+  
+  
+  setVolume: (value: number) => {set({ volume: value }) },
 
   initializeQueue: (songs: Song[]) => {
     set({
