@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { SkipBack, SkipForward, Volume1, VolumeX, Volume2 } from "lucide-react";
 import { CirclePlay, CirclePause } from "lucide-react";
 
-
 const formatTime = (seconds: number) => {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = Math.floor(seconds % 60);
@@ -30,13 +29,13 @@ const PlaybackControls = ({
     <footer className="h-16 sm:h-24 bg-zinc-900 border-t border-zinc-800 px-6">
       <div className="grid grid-cols-3 items-center h-full">
         {/* current playing song info */}
-        <div className="hidden sm:flex items-center gap-5 min-w-[180px]">
+        <div className=" sm:flex items-center gap-5 min-w-[48px]">
           {currentSong && (
             <>
               <img
                 src={currentSong.imageUrl}
                 alt={currentSong.title}
-                className="w-18 h-18 object-cover rounded-md"
+                className="w-10 h-10 sm:w-18 sm:h-18 object-cover rounded-md"
               />
 
               <div className="flex flex-col min-w-0">
@@ -88,7 +87,7 @@ const PlaybackControls = ({
               <SkipForward className="h-7 w-7" />
             </Button>
           </div>
-          <div className="hidden sm:flex items-center justify-center gap-4 w-full">
+          <div className="flex items-center justify-center gap-4 w-full">
             <div className="text-xs text-zinc-400">
               {formatTime(currentTime)}
             </div>
@@ -106,7 +105,7 @@ const PlaybackControls = ({
         </div>
 
         {/* Volume control on the right*/}
-        <div className=" hidden sm:flex items-center justify-end gap-4">
+        <div className="hidden sm:flex items-center justify-end gap-4">
           <Button
             size="icon"
             variant="ghost"

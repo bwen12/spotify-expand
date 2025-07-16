@@ -28,15 +28,15 @@ const SectionGrid = ({ title, songs, isLoading }: SectionGridProps) => {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         {songs.map((song) => (
           <div
             key={song._id}
-            className="bg-zinc-800/50 rounded-md overflow-hidden hover:bg-zinc-700/50 transition-colors group cursor-pointer p-4"
+            className="bg-zinc-800/50 rounded-md overflow-hidden hover:bg-zinc-700/50 transition-colors group cursor-pointer p-2 sm:p-4"
             onClick={() => playSong(song)}
           >
-            <div className="relative mb-4">
-              <div className="aspect-square rounded-md shadow-lg overflow-hidden">
+            <div className="relative mb-2 sm:mb-4">
+              <div className="aspect-square rounded-md shadow-lg overflow-hidden w-full max-w-[120px] sm:max-w-[220px] md:max-w-full mx-auto">
                 <img
                   src={song.imageUrl}
                   alt={song.title}
@@ -48,10 +48,12 @@ const SectionGrid = ({ title, songs, isLoading }: SectionGridProps) => {
               </div>
             </div>
             <div>
-              <h3 className="text-white font-semibold truncate mb-2">
+              <h3 className="text-base sm:text-lg font-semibold truncate mb-1 sm:mb-2">
                 {song.title}
               </h3>
-              <p className="text-sm text-zinc-400 truncate">{song.artist}</p>
+              <p className="text-xs sm:text-sm text-zinc-400 truncate">
+                {song.artist}
+              </p>
             </div>
           </div>
         ))}

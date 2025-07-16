@@ -34,7 +34,7 @@ const FeaturedSection = () => {
   }
 
   return (
-    <div className="w-full  py-6">
+    <div className="relative w-full py-6 overflow-visible">
       <Carousel opts={{ align: "start", loop: true }} className="w-full">
         <CarouselContent>
           {songs.map((song) => (
@@ -47,7 +47,7 @@ const FeaturedSection = () => {
                 onClick={() => playSong(song)}
               >
                 <div className="relative mb-4">
-                  <div className="aspect-square rounded-md shadow-lg overflow-hidden">
+                  <div className="aspect-square rounded-md shadow-lg overflow-hidden w-full max-w-[120px] sm:max-w-[220px] md:max-w-full mx-auto">
                     <img
                       src={song.imageUrl}
                       alt={song.title}
@@ -70,8 +70,8 @@ const FeaturedSection = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="!bg-emerald-500 absolute left-2 top-1/2 -translate-y-1/2 z-10 cursor-pointer" />
-        <CarouselNext ref={nextRef} className="!bg-emerald-500 absolute right-2 top-1/2 -translate-y-1/2 z-10 cursor-pointer" />
+        <CarouselPrevious aria-label= "prvious" className="!bg-emerald-500 absolute left-2 top-1/2 -translate-y-1/2 z-10 cursor-pointer" />
+        <CarouselNext aria-label= "next" ref={nextRef} className="!bg-emerald-500 absolute right-2 top-1/2 -translate-y-1/2 z-10 cursor-pointer" />
       </Carousel>
     </div>
   );
