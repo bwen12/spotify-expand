@@ -21,14 +21,14 @@ Live Demo: [spotify-expand.onrender.com](https://spotify-expand.onrender.com)
 - **Frontend:** React + TypeScript + TailwindCSS + Zustand + ShadCN UI + Framer Motion  
 - **Backend:** Node.js + Express + MongoDB + Mongoose + Multer  
 - **Real-time:** Socket.IO  
-- **Auth:** Clerk  
+- **Auth:** Clerk (dev mode only – limited by free hosting domain)
 - **Media Storage:** Cloudinary  
 - **Deployment:** Render (for both frontend and backend)
 
 
 ## Deployment
 
-The app is fully deployed and live on Render:
+The app is fully deployed and live on Render for demo use:
 
 - **Frontend:** [spotify-expand.onrender.com](https://spotify-expand.onrender.com)
 - **Backend/API:** Render auto-deployment using a monorepo with build scripts
