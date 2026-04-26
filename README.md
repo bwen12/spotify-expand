@@ -13,7 +13,7 @@ Live Demo: [spotify-expand.onrender.com](https://spotify-expand.onrender.com)
 
 ## Screenshot
 
-<img width="750" height="934" alt="image" src="https://github.com/user-attachments/assets/2ca511a8-205e-4d68-97df-85847176c02a" />
+<img width="750" alt="image" src="https://github.com/user-attachments/assets/2ca511a8-205e-4d68-97df-85847176c02a" />
 
 
 ## Tech Stack
